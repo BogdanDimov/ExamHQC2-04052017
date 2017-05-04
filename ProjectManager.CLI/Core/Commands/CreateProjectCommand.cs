@@ -21,9 +21,7 @@ namespace ProjectManager.CLI.Core.Commands
         public CreateProjectCommand(Database database, ModelsFactory factory)
         {
             Guard.WhenArgument(database, "CreateProjectCommand Database").IsNull().Throw();
-            Guard.WhenArgument(
-                    factory, "CreateProjectCommand ModelsFactory")
-                .IsNull().Throw();
+            Guard.WhenArgument(factory, "CreateProjectCommand ModelsFactory").IsNull().Throw();
 
             this.database = database;
             this.factory = factory;

@@ -11,7 +11,6 @@ namespace ProjectManager.CLI.Core
 
         public Engine(FileLogger logger, CommandProcessor processor)
         {
-            // validate clauses
             Guard.WhenArgument(logger, "Engine Logger provider").IsNull().Throw();
             Guard.WhenArgument(processor, "Engine Processor provider").IsNull().Throw();
 

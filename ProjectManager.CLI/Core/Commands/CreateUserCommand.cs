@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ProjectManager.CLI.Common;
+using ProjectManager.CLI.Core.Commands.Contracts;
 using ProjectManager.CLI.Data;
 using ProjectManager.CLI.Factories;
 
 namespace ProjectManager.CLI.Core.Commands
 {
-    public class CreateUserCommand
+    // bug CreateUserCommand not implementing ICommand
+    public class CreateUserCommand : ICommand
     {
         private const string InvalidParametersCountError = "Invalid command parameters count!";
         private const string EmptyParametersError = "Some of the passed parameters are empty!";

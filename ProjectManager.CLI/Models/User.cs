@@ -6,17 +6,21 @@ namespace ProjectManager.CLI.Models
 {
     public class User : IUser
     {
+        private const string UsernameRequiredMessage = "User Username is required!";
+        private const string EmailRequiredMessage = "User Email is required!";
+        private const string EmailNotValidMessage = "User Email is not valid!";
+
         public User(string username, string email)
         {
             this.UserName = username;
             this.Email = email;
         }
 
-        [Required(ErrorMessage = "User Username is required!")]
+        [Required(ErrorMessage = UsernameRequiredMessage)]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "User Email is required!")]
-        [EmailAddress(ErrorMessage = "User Email is not valid!")]
+        [Required(ErrorMessage = EmailRequiredMessage)]
+        //[EmailAddress(ErrorMessage = EmailNotValidMessage)]
         public string Email { get; set; }
 
         public override string ToString()

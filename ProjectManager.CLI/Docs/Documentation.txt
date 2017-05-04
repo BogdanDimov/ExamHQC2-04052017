@@ -1,0 +1,10 @@
+﻿Bugs:
+
+#1	CommandsFactory.cs --> CreateCommandFromString() --> ToLower() was not called on command.
+#2	CreateUserCommand was not implementing ICommand interface.
+#3	CreateCommandFromString method missing switch case for "createuser" command.
+#4
+
+Bottleneck:
+
+#1

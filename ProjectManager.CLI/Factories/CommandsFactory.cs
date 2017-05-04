@@ -12,6 +12,7 @@ namespace ProjectManager.CLI.Factories
         private const string InvalidCommandError = "The passed command is not valid!";
         private const string CreateProjectCommand = "createproject";
         private const string CreateTaskCommand = "createtask";
+        private const string CreateUserCommand = "createuser";
         private const string ListProjectsCommand = "listprojects";
 
         private readonly Database database;
@@ -25,7 +26,7 @@ namespace ProjectManager.CLI.Factories
 
         public ICommand CreateCommandFromString(string commandName)
         {
-            var command = this.BuildCommand(commandName);
+            var command = this.BuildCommand(commandName).ToLower();
 
             switch (command)
             {
@@ -33,6 +34,9 @@ namespace ProjectManager.CLI.Factories
                     return new CreateProjectCommand(this.database, this.modelsFactory);
                 case CreateTaskCommand:
                     return new CreateTaskCommand();
+                //bug -- missing switch case for CreateUserCommand()
+                case CreateUserCommand:
+                    return new CreateUserCommand();
                 case ListProjectsCommand:
                     return new ListProjectsCommand(this.database);
                 default:
@@ -44,14 +48,15 @@ namespace ProjectManager.CLI.Factories
         {
             var command = string.Empty;
 
-            var end = DateTime.Now + TimeSpan.FromSeconds(1);
-            while (DateTime.Now < end)
-            {
-            }
+            //var end = DateTime.Now + TimeSpan.FromSeconds(1);
+            //while (DateTime.Now < end)
+            //{
+            //}
 
+            //possible bottleneck, calls tolower after each increment
             for (var i = 0; i < parameters.Length; i++)
             {
-                command += parameters[i].ToString().ToLower();
+                command += parameters[i]/*.ToString().ToLower()*/;
             }
 
             return command;

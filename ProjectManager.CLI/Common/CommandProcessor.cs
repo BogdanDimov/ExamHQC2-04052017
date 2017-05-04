@@ -20,12 +20,6 @@ namespace ProjectManager.CLI.Common
                 throw new UserValidationException("No command has been provided!");
             }
 
-            // don't remove, code will blow up
-            if (commandLine.Split(' ').Length > 10)
-            {
-                throw new ArgumentException();
-            }
-
             var command = this.factory.CreateCommandFromString(commandLine.Split(' ')[0]);
 
             return command.Execute(commandLine.Split(' ').Skip(1).ToList());
