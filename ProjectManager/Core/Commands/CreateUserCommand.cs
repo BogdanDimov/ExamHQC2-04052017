@@ -13,28 +13,28 @@ namespace ProjectManager.CLI.Core.Commands
         private const string SuccessMessage = "Successfully created a new user!";
         private const string UserAlreadyExistsError = "A user with that username already exists!";
 
-        public string Execute(List<string> prms)
+        public string Execute(List<string> parameters)
         {
             var database = new Database();
             var modelsFactory = new ModelsFactory();
 
-            if (prms.Count != 3)
+            if (parameters.Count != 3)
             {
                 throw new UserValidationException(InvalidParametersCountError);
             }
 
-            if (prms.Any(x => x == string.Empty))
+            if (parameters.Any(x => x == string.Empty))
             {
                 throw new UserValidationException(EmptyParametersError);
             }
 
-            if (database.Projects[int.Parse(prms[0])].Users.Any() &&
-                database.Projects[int.Parse(prms[0])].Users.Any(x => x.UserName == prms[1]))
+            if (database.Projects[int.Parse(parameters[0])].Users.Any() &&
+                database.Projects[int.Parse(parameters[0])].Users.Any(x => x.UserName == parameters[1]))
             {
                 throw new UserValidationException(UserAlreadyExistsError);
             }
 
-            database.Projects[int.Parse(prms[0])].Users.Add(modelsFactory.CreateUser(prms[1], prms[2]));
+            database.Projects[int.Parse(parameters[0])].Users.Add(modelsFactory.CreateUser(parameters[1], parameters[2]));
 
             return SuccessMessage;
         }
