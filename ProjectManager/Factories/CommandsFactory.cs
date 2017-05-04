@@ -13,6 +13,7 @@ namespace ProjectManager.CLI.Factories
         private const string CreateProjectCommand = "createproject";
         private const string CreateTaskCommand = "createtask";
         private const string ListProjectsCommand = "listprojects";
+
         private readonly Database database;
         private readonly ModelsFactory modelsFactory;
 
