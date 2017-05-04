@@ -9,6 +9,10 @@ namespace ProjectManager.CLI.Factories
 {
     public class CommandsFactory : ICommandsFactory
     {
+        private const string InvalidCommandError = "The passed command is not valid!";
+        private const string CreateProjectCommand = "createproject";
+        private const string CreateTaskCommand = "createtask";
+        private const string ListProjectsCommand = "listprojects";
         private readonly Database database;
         private readonly ModelsFactory modelsFactory;
 
@@ -20,14 +24,18 @@ namespace ProjectManager.CLI.Factories
 
         public ICommand CreateCommandFromString(string commandName)
         {
-            var cmd = this.BuildCommand(commandName);
+            var command = this.BuildCommand(commandName);
 
-            switch (cmd)
+            switch (command)
             {
-                case "createproject": return new CreateProjectCommand(this.database, this.modelsFactory);
-                case "createtask": return new CreateTaskCommand();
-                case "listprojects": return new ListProjectsCommand(this.database);
-                default: throw new UserValidationException("The passed command is not valid!");
+                case CreateProjectCommand:
+                    return new CreateProjectCommand(this.database, this.modelsFactory);
+                case CreateTaskCommand:
+                    return new CreateTaskCommand();
+                case ListProjectsCommand:
+                    return new ListProjectsCommand(this.database);
+                default:
+                    throw new UserValidationException(InvalidCommandError);
             }
         }
 
