@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using ProjectManager.CLI.Factories;
 
 namespace ProjectManager.CLI.Common
 {
     public class CommandProcessor
     {
+        private const string NoCommandProvidedError = "No command has been provided!";
         private readonly CommandsFactory factory;
 
         public CommandProcessor(CommandsFactory factory)
@@ -17,7 +17,7 @@ namespace ProjectManager.CLI.Common
         {
             if (string.IsNullOrWhiteSpace(commandLine))
             {
-                throw new UserValidationException("No command has been provided!");
+                throw new UserValidationException(NoCommandProvidedError);
             }
 
             var command = this.factory.CreateCommandFromString(commandLine.Split(' ')[0]);

@@ -3,8 +3,9 @@
 #1	CommandsFactory.cs --> CreateCommandFromString() --> ToLower() was not called on command.
 #2	CreateUserCommand was not implementing ICommand interface.
 #3	CreateCommandFromString method missing switch case for "createuser" command.
-#4
+#4	Unused variable "end" inside BuildCommand method + unnecessary while loop.
+#5	Missing switch case for CreateUserCommand inside CreateCommandFromString method.
 
 Bottleneck:
 
-#1
+#1	Unnecessary calls to .ToString().ToLower() inside the for cycle of the BuildCommand method. For cycle is redundant.

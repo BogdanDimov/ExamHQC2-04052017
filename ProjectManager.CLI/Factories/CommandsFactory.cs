@@ -1,5 +1,4 @@
-﻿using System;
-using ProjectManager.CLI.Common;
+﻿using ProjectManager.CLI.Common;
 using ProjectManager.CLI.Core.Commands;
 using ProjectManager.CLI.Core.Commands.Contracts;
 using ProjectManager.CLI.Data;
@@ -26,7 +25,7 @@ namespace ProjectManager.CLI.Factories
 
         public ICommand CreateCommandFromString(string commandName)
         {
-            var command = this.BuildCommand(commandName).ToLower();
+            var command = this.BuildCommand(commandName);
 
             switch (command)
             {
@@ -34,7 +33,6 @@ namespace ProjectManager.CLI.Factories
                     return new CreateProjectCommand(this.database, this.modelsFactory);
                 case CreateTaskCommand:
                     return new CreateTaskCommand();
-                //bug -- missing switch case for CreateUserCommand()
                 case CreateUserCommand:
                     return new CreateUserCommand();
                 case ListProjectsCommand:
@@ -46,19 +44,7 @@ namespace ProjectManager.CLI.Factories
 
         private string BuildCommand(string parameters)
         {
-            var command = string.Empty;
-
-            //var end = DateTime.Now + TimeSpan.FromSeconds(1);
-            //while (DateTime.Now < end)
-            //{
-            //}
-
-            //possible bottleneck, calls tolower after each increment
-            for (var i = 0; i < parameters.Length; i++)
-            {
-                command += parameters[i]/*.ToString().ToLower()*/;
-            }
-
+            var command = parameters.ToLower();
             return command;
         }
     }
