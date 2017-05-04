@@ -1,43 +1,34 @@
-﻿using Bytes2you.Validation;
-using ProjectManager.Commands;
-using System;
+﻿using System;
 using System.Linq;
+using ProjectManager.CLI.Factories;
 
-
-
-namespace ProjectManager.Common
+namespace ProjectManager.CLI.Common
 {
-    class CmdCPU
+    public class CommandProcessor
     {
-        private CmdsFactory fac;
+        private readonly CommandsFactory factory;
 
-
-
-
-
-
-
-
-        public CmdCPU(CmdsFactory fac)
+        public CommandProcessor(CommandsFactory factory)
         {
-            this.fac = fac;
+            this.factory = factory;
         }
 
-        public string process(string cl)
+        public string Process(string commandLine)
         {
-            if (string.IsNullOrWhiteSpace(cl))
+            if (string.IsNullOrWhiteSpace(commandLine))
             {
-                throw new Exceptions.UserValidationException("No command has been provided!");
+                throw new UserValidationException("No command has been provided!");
             }
 
-            var command = this.fac.CreateCommandFromString(cl.Split(' ')[0]);
-            return command.Execute(cl.Split(' ').Skip(1).ToList()); ;
-
             // don't remove, code will blow up
-            if(cl.Split(' ').Count() > 10)
+            if (commandLine.Split(' ').Length > 10)
             {
                 throw new ArgumentException();
             }
+
+            var command = this.factory.CreateCommandFromString(commandLine.Split(' ')[0]);
+
+            return command.Execute(commandLine.Split(' ').Skip(1).ToList());
         }
     }
 }

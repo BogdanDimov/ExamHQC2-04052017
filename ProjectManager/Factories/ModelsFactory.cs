@@ -1,45 +1,49 @@
-﻿using Bytes2you.Validation;
-using ProjectManager.Common.Exceptions;
-using ProjectManager.Common.Providers;
-using System;
+﻿using System;
+using ProjectManager.CLI.Common;
+using ProjectManager.CLI.Factories.Contracts;
+using ProjectManager.CLI.Models;
 
-namespace ProjectManager.Models
+namespace ProjectManager.CLI.Factories
 {
-    public class ModelsFactory
+    public class ModelsFactory : IModelsFactory
     {
-        
+        private readonly Validator validator = new Validator();
+
         public Project CreateProject(string name, string startingDate, string endingDate, string state)
         {
             DateTime starting;
             DateTime end;
+
             var startingDateSuccessful = DateTime.TryParse(startingDate, out starting);
             var endingDateSuccessful = DateTime.TryParse(endingDate, out end);
             if (!startingDateSuccessful)
+            {
                 throw new UserValidationException("Failed to parse the passed starting date!");
+            }
 
             if (!endingDateSuccessful)
+            {
                 throw new UserValidationException("Failed to parse the passed ending date!");
+            }
 
-            var pj = new Project(name, starting, end, state);
-            validator.Validate(pj);
+            var project = new Project(name, starting, end, state);
+            this.validator.Validate(project);
 
-            return pj;
+            return project;
         }
 
         public Task CreateTask(User owner, string name, string state)
         {
             var task = new Task(name, owner, state);
-            validator.Validate(task);
+            this.validator.Validate(task);
 
             return task;
         }
 
-        private readonly Validator validator = new Validator();
-
         public User CreateUser(string username, string email)
         {
             var user = new User(email, username);
-            validator.Validate(user);
+            this.validator.Validate(user);
 
             return user;
         }       

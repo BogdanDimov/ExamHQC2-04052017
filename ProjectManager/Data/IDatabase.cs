@@ -1,7 +1,7 @@
-﻿using ProjectManager.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using ProjectManager.CLI.Models.Contracts;
 
-namespace ProjectManager.Data
+namespace ProjectManager.CLI.Data
 {
     // You are not allowed to modify this interface (except to add documentation)
     public interface IDatabase

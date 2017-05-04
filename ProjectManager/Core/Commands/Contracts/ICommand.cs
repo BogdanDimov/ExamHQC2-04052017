@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProjectManager.Commands
+namespace ProjectManager.CLI.Core.Commands.Contracts
 {
     public interface ICommand
     {

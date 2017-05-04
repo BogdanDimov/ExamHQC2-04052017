@@ -1,26 +1,29 @@
 ﻿using log4net;
 
-namespace ProjectManager.Common
+namespace ProjectManager.CLI.Common
 {
     public class FileLogger
     {
-        private static ILog log;
+        private static readonly ILog Log;
 
         static FileLogger()
         {
-            log = LogManager.GetLogger(typeof(FileLogger));
+            Log = LogManager.GetLogger(typeof(FileLogger));
         }
-        public void info(object msg)
+
+        public void LogInfoMessage(object message)
         {
-            log.Info(msg);
-        }        
-        public void error(object msg)
+            Log.Info(message);
+        }
+
+        public void LogErrorMessage(object message)
         {
-            //log.Error(msg);
-        }        
-        public void fatal(object msg)
+            Log.Error(message);
+        }
+
+        public void LogFatalError(object message)
         {
-            log.Fatal(msg);
+            Log.Fatal(message);
         }
     }
 }
